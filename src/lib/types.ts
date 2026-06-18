@@ -36,6 +36,8 @@ export interface GameConfig {
   difficulty: Difficulty | "custom";
   civilWord: string;
   undercoverWord: string;
+  timerEnabled: boolean;
+  timerDuration: number;
 }
 
 export interface EliminationEntry {

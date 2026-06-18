@@ -1,5 +1,30 @@
 import type { EliminationEntry, Player, WinResult } from "./types";
 
+const ANIMALS = [
+  "🐱",
+  "🐶",
+  "🦊",
+  "🐺",
+  "🐻",
+  "🐼",
+  "🐨",
+  "🦁",
+  "🐯",
+  "🦝",
+  "🐸",
+  "🐙",
+  "🦋",
+  "🦅",
+  "🦉",
+  "🐬",
+  "🦄",
+  "🐲",
+];
+
+export function getAvatar(order: number): string {
+  return ANIMALS[order % ANIMALS.length] ?? "🎭";
+}
+
 export function checkVictory(
   players: Player[],
   eliminatedLog: EliminationEntry[],

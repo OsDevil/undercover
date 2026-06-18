@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { checkVictory, getLoverPartner, shouldTriggerMrWhiteGuess } from "@/lib/gameLogic";
 import { assignRoles } from "@/lib/roleAssigner";
-import type { GameConfig, GameState, Player, WinResult } from "@/lib/types";
+import type { GameConfig, GameState, Player } from "@/lib/types";
 
 interface GameStore extends GameState {
   // Lobby
@@ -40,6 +40,8 @@ const DEFAULT_CONFIG: GameConfig = {
   difficulty: "easy",
   civilWord: "",
   undercoverWord: "",
+  timerEnabled: false,
+  timerDuration: 30,
 };
 
 const INITIAL_STATE: GameState = {
@@ -153,27 +155,22 @@ export const useGameStore = create<GameStore>()(
         }
 
         // Jester check first (round 1)
-        const jesterWin = round === 1 && target.specialRole === "jester";
-        if (jesterWin) {
-          const result: WinResult = {
-            team: "jester",
-            winnerIds: [playerId],
-            reason: `${target.name} était le Jester et a été éliminé au Tour 1 !`,
-          };
-          set({ players: updatedPlayers, eliminatedLog: newLog, winners: result, phase: "result" });
+        if (round === 1 && target.specialRole === "jester") {
+          set({
+            players: updatedPlayers,
+            eliminatedLog: newLog,
+            winners: {
+              team: "jester",
+              winnerIds: [playerId],
+              reason: `${target.name} était le Jester et a été éliminé au Tour 1 !`,
+            },
+            phase: "result",
+          });
           return;
         }
 
-        // Check vengeuse
-        const hasPendingVengeance = target.specialRole === "vengeuse";
-
-        // Check Mr. White guess trigger
-        const mrWhiteId = shouldTriggerMrWhiteGuess(updatedPlayers);
-
-        // Check victory
-        const victory = checkVictory(updatedPlayers, newLog, round);
-
-        if (hasPendingVengeance) {
+        // Vengeuse fires first (even for mr_white who is also vengeuse)
+        if (target.specialRole === "vengeuse") {
           set({
             players: updatedPlayers,
             eliminatedLog: newLog,
@@ -182,6 +179,21 @@ export const useGameStore = create<GameStore>()(
           });
           return;
         }
+
+        // Mr. White voted out → always get a guess before any victory check
+        if (target.role === "mr_white") {
+          set({
+            players: updatedPlayers,
+            eliminatedLog: newLog,
+            pendingMrWhiteId: playerId,
+            phase: "mr_white_guess",
+          });
+          return;
+        }
+
+        // Surviving Mr. White scenario (alive after others were eliminated)
+        const mrWhiteId = shouldTriggerMrWhiteGuess(updatedPlayers);
+        const victory = checkVictory(updatedPlayers, newLog, round);
 
         if (mrWhiteId && !victory) {
           set({
@@ -285,27 +297,31 @@ export const useGameStore = create<GameStore>()(
       },
 
       resolveMrWhiteGuess: (won) => {
-        const { players, round: _round, pendingMrWhiteId } = get();
+        const { players, eliminatedLog, round, pendingMrWhiteId } = get();
         const mrWhite = players.find((p) => p.id === pendingMrWhiteId);
 
         if (won && mrWhite) {
-          const result: WinResult = {
-            team: "mr_white",
-            winnerIds: [mrWhite.id],
-            reason: `${mrWhite.name} (Mr. White) a trouvé le bon mot et remporte la partie !`,
-          };
-          set({ winners: result, phase: "result", pendingMrWhiteId: null });
+          set({
+            winners: {
+              team: "mr_white",
+              winnerIds: [mrWhite.id],
+              reason: `${mrWhite.name} (Mr. White) a trouvé le bon mot et remporte la partie !`,
+            },
+            phase: "result",
+            pendingMrWhiteId: null,
+          });
           return;
         }
 
-        // Mr. White lost the guess → Civils win
-        const aliveCivils = players.filter((p) => p.alive && p.role === "civil");
-        const civilWin: WinResult = {
-          team: "civil",
-          winnerIds: aliveCivils.map((p) => p.id),
-          reason: `${mrWhite?.name ?? "Mr. White"} n'a pas trouvé le mot. Les Civils gagnent !`,
-        };
-        set({ winners: civilWin, phase: "result", pendingMrWhiteId: null });
+        // Mr. White lost — check actual victory state (undercovers may still be alive)
+        const victory = checkVictory(players, eliminatedLog, round);
+        if (victory) {
+          set({ winners: victory, phase: "result", pendingMrWhiteId: null });
+          return;
+        }
+
+        // No victory yet — game continues without Mr. White
+        set({ pendingMrWhiteId: null, phase: "playing", round: round + 1 });
       },
 
       reset: () => set(INITIAL_STATE),
@@ -336,6 +352,15 @@ export const useGameStore = create<GameStore>()(
         pendingVengeanceId: state.pendingVengeanceId,
         pendingMrWhiteId: state.pendingMrWhiteId,
         winners: state.winners,
+      }),
+      // Migrate old persisted state missing timer fields
+      merge: (persisted, current) => ({
+        ...current,
+        ...(persisted as Partial<typeof current>),
+        config: {
+          ...DEFAULT_CONFIG,
+          ...((persisted as Partial<typeof current>).config ?? {}),
+        },
       }),
     }
   )

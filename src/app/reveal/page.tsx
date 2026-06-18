@@ -11,7 +11,8 @@ export default function RevealPage() {
   const { players, revealIndex, advanceReveal, phase } = useGameStore();
 
   useEffect(() => {
-    if (phase !== "reveal") router.replace("/");
+    if (phase === "playing") router.replace("/game");
+    else if (phase !== "reveal") router.replace("/");
   }, [phase, router]);
 
   const sorted = [...players].sort((a, b) => a.order - b.order);
@@ -24,10 +25,8 @@ export default function RevealPage() {
       ? players.find((p) => p.id === currentPlayer.loverPartnerId)?.name
       : undefined;
 
-  const isLast = revealIndex >= sorted.length - 1;
-
   return (
-    <main className="flex flex-col min-h-dvh">
+    <main className="flex flex-col min-h-dvh bg-[var(--bg)]">
       {/* Progress bar */}
       <div className="w-full h-1 bg-[var(--surface2)]">
         <div
@@ -46,7 +45,6 @@ export default function RevealPage() {
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.25 }}
           >
-            {/* Pass phone prompt */}
             <div className="mb-4 text-center px-4">
               <p className="text-[var(--text-muted)] text-xs mb-1">
                 {revealIndex + 1} / {sorted.length}
@@ -54,24 +52,13 @@ export default function RevealPage() {
               {revealIndex > 0 && (
                 <p className="text-sm text-[var(--text-muted)]">
                   Passe le téléphone à{" "}
-                  <span className="font-semibold text-white">{currentPlayer.name}</span>
+                  <span className="font-bold text-[var(--text)]">{currentPlayer.name}</span>
                 </p>
               )}
             </div>
 
             <div className="w-full max-h-[75dvh] flex items-center justify-center">
-              <RoleCard
-                player={currentPlayer}
-                loverName={loverName}
-                onDone={() => {
-                  if (isLast) {
-                    advanceReveal();
-                    router.push("/game");
-                  } else {
-                    advanceReveal();
-                  }
-                }}
-              />
+              <RoleCard player={currentPlayer} loverName={loverName} onDone={advanceReveal} />
             </div>
           </motion.div>
         </AnimatePresence>
