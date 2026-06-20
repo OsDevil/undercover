@@ -26,6 +26,7 @@ import {
   GripVertical,
   Heart,
   Layers,
+  Mic,
   Minus,
   Pencil,
   Play,
@@ -175,6 +176,7 @@ export default function SetupPage() {
 
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const initialPlayerCount = useRef(players.length);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -205,8 +207,9 @@ export default function SetupPage() {
   const [undercoverCount, setUndercoverCount] = useState(config.undercoverCount);
   const [mrWhiteCount, setMrWhiteCount] = useState(config.mrWhiteCount);
 
-  // Auto-suggest when player count changes
+  // Auto-suggest when player count changes, but skip initial render on rematch
   useEffect(() => {
+    if (players.length === initialPlayerCount.current) return;
     const sug = suggestRoleCounts(players.length);
     setCivilCount(sug.civilCount);
     setUndercoverCount(sug.undercoverCount);
@@ -259,6 +262,7 @@ export default function SetupPage() {
 
   const [timerEnabled, setTimerEnabled] = useState(config.timerEnabled ?? false);
   const [timerDuration, setTimerDuration] = useState(config.timerDuration ?? 30);
+  const [mrWhiteCanStart, setMrWhiteCanStart] = useState(config.mrWhiteCanStart ?? false);
 
   // ── Derived ───────────────────────────────────────────────────────────────
 
@@ -276,6 +280,7 @@ export default function SetupPage() {
       undercoverWord: customMode ? undercoverWord.trim() : undercoverWord,
       timerEnabled,
       timerDuration,
+      mrWhiteCanStart,
     };
     setConfig(cfg);
     startGame();
@@ -529,6 +534,40 @@ export default function SetupPage() {
                 })}
               </div>
             </section>
+
+            {/* First speaker — only relevant when Mr. White is in play */}
+            {mrWhiteCount > 0 && (
+              <section>
+                <SectionTitle>Premier de parole</SectionTitle>
+                <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-[var(--surface)] border border-[var(--border)]">
+                  <div className="flex items-center gap-2.5">
+                    <Mic className="w-4 h-4 text-[var(--text-muted)]" />
+                    <div>
+                      <p className="text-sm font-semibold text-[var(--text)]">
+                        Mr. White peut commencer
+                      </p>
+                      <p className="text-xs text-[var(--text-muted)]">
+                        {mrWhiteCanStart
+                          ? "Tirage parmi tous les joueurs"
+                          : "Mr. White exclu du tirage"}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setMrWhiteCanStart((v) => !v)}
+                    className={`w-12 h-6 rounded-full relative transition-colors flex-shrink-0 ${
+                      mrWhiteCanStart ? "bg-[var(--accent)]" : "bg-[var(--surface2)]"
+                    }`}
+                    style={{ border: "1px solid var(--border)" }}
+                  >
+                    <span
+                      className="absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all"
+                      style={{ left: mrWhiteCanStart ? "calc(100% - 1.375rem)" : "2px" }}
+                    />
+                  </button>
+                </div>
+              </section>
+            )}
 
             {/* Timer */}
             <section>
