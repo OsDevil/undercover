@@ -4,6 +4,7 @@ export type GamePhase =
   | "lobby"
   | "config"
   | "reveal"
+  | "first_speaker"
   | "playing"
   | "voting"
   | "mr_white_guess"
@@ -38,6 +39,7 @@ export interface GameConfig {
   undercoverWord: string;
   timerEnabled: boolean;
   timerDuration: number;
+  mrWhiteCanStart: boolean;
 }
 
 export interface EliminationEntry {
@@ -64,4 +66,5 @@ export interface GameState {
   pendingVengeanceId: string | null;
   pendingMrWhiteId: string | null;
   winners: WinResult | null;
+  firstSpeakerId: string | null;
 }

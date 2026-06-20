@@ -42,6 +42,7 @@ const DEFAULT_CONFIG: GameConfig = {
   undercoverWord: "",
   timerEnabled: false,
   timerDuration: 30,
+  mrWhiteCanStart: false,
 };
 
 const INITIAL_STATE: GameState = {
@@ -54,6 +55,7 @@ const INITIAL_STATE: GameState = {
   pendingVengeanceId: null,
   pendingMrWhiteId: null,
   winners: null,
+  firstSpeakerId: null,
 };
 
 export const useGameStore = create<GameStore>()(
@@ -100,6 +102,11 @@ export const useGameStore = create<GameStore>()(
       startGame: () => {
         const { players, config } = get();
         const assigned = assignRoles(players, config);
+        const eligible = config.mrWhiteCanStart
+          ? assigned
+          : assigned.filter((p) => p.role !== "mr_white");
+        const pool = eligible.length > 0 ? eligible : assigned;
+        const firstSpeaker = pool[Math.floor(Math.random() * pool.length)]!;
         set({
           players: assigned,
           phase: "reveal",
@@ -107,6 +114,9 @@ export const useGameStore = create<GameStore>()(
           revealIndex: 0,
           eliminatedLog: [],
           winners: null,
+          firstSpeakerId: firstSpeaker.id,
+          pendingVengeanceId: null,
+          pendingMrWhiteId: null,
         });
       },
 
@@ -114,7 +124,7 @@ export const useGameStore = create<GameStore>()(
         const { revealIndex, players } = get();
         const sorted = [...players].sort((a, b) => a.order - b.order);
         if (revealIndex + 1 >= sorted.length) {
-          set({ phase: "playing" });
+          set({ phase: "first_speaker" });
         } else {
           set({ revealIndex: revealIndex + 1 });
         }
@@ -326,10 +336,12 @@ export const useGameStore = create<GameStore>()(
 
       reset: () => set(INITIAL_STATE),
 
-      resetToLobby: () =>
+      resetToLobby: () => {
+        const { players, config } = get();
         set({
           ...INITIAL_STATE,
-          players: get().players.map((p, i) => ({
+          config: { ...config, civilWord: "", undercoverWord: "" },
+          players: players.map((p, i) => ({
             id: p.id,
             name: p.name,
             order: i,
@@ -338,7 +350,8 @@ export const useGameStore = create<GameStore>()(
             word: null,
             alive: true,
           })),
-        }),
+        });
+      },
     }),
     {
       name: "undercover-game",
@@ -352,6 +365,7 @@ export const useGameStore = create<GameStore>()(
         pendingVengeanceId: state.pendingVengeanceId,
         pendingMrWhiteId: state.pendingMrWhiteId,
         winners: state.winners,
+        firstSpeakerId: state.firstSpeakerId,
       }),
       // Migrate old persisted state missing timer fields
       merge: (persisted, current) => ({

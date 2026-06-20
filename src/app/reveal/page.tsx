@@ -1,22 +1,59 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { Mic } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { RoleCard } from "@/components/RoleCard";
+import { getAvatar } from "@/lib/gameLogic";
 import { useGameStore } from "@/store/gameStore";
 
 export default function RevealPage() {
   const router = useRouter();
-  const { players, revealIndex, advanceReveal, phase } = useGameStore();
+  const { players, revealIndex, advanceReveal, setPhase, phase, firstSpeakerId } = useGameStore();
 
   useEffect(() => {
     if (phase === "playing") router.replace("/game");
-    else if (phase !== "reveal") router.replace("/");
+    else if (phase !== "reveal" && phase !== "first_speaker") router.replace("/");
   }, [phase, router]);
 
   const sorted = [...players].sort((a, b) => a.order - b.order);
   const currentPlayer = sorted[revealIndex];
+
+  if (phase === "first_speaker") {
+    const firstSpeaker = players.find((p) => p.id === firstSpeakerId) ?? players[0];
+    if (!firstSpeaker) return null;
+    return (
+      <main className="flex flex-col min-h-dvh bg-[var(--bg)] items-center justify-center p-6">
+        <motion.div
+          initial={{ scale: 0.85, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", damping: 14, stiffness: 200 }}
+          className="w-full max-w-sm flex flex-col items-center gap-6 text-center"
+        >
+          <div className="w-20 h-20 rounded-3xl bg-violet-500/15 border-2 border-violet-500/30 flex items-center justify-center">
+            <Mic className="w-9 h-9 text-violet-500" />
+          </div>
+          <div>
+            <p className="text-sm text-[var(--text-muted)] uppercase tracking-widest font-bold mb-2">
+              Premier à parler
+            </p>
+            <p className="text-5xl mb-3">{getAvatar(firstSpeaker.order)}</p>
+            <h1 className="text-3xl font-black text-[var(--text)]">{firstSpeaker.name}</h1>
+          </div>
+          <button
+            onClick={() => {
+              setPhase("playing");
+              router.replace("/game");
+            }}
+            className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-700 text-white font-bold text-base flex items-center justify-center gap-2 active:scale-95 transition-all shadow-lg shadow-violet-500/25 mt-2"
+          >
+            C&apos;est parti !
+          </button>
+        </motion.div>
+      </main>
+    );
+  }
 
   if (!currentPlayer) return null;
 
