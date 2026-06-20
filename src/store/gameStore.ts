@@ -269,6 +269,18 @@ export const useGameStore = create<GameStore>()(
                 specialRole: loverPartner.specialRole,
               });
             }
+
+            // Mr. White killed by vengeance gets to guess before any victory check
+            if (target.role === "mr_white") {
+              set({
+                players: updatedPlayers,
+                eliminatedLog: newLog,
+                pendingVengeanceId: null,
+                pendingMrWhiteId: targetId,
+                phase: "mr_white_guess",
+              });
+              return;
+            }
           }
         }
 
