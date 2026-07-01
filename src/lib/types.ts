@@ -4,7 +4,6 @@ export type GamePhase =
   | "lobby"
   | "config"
   | "reveal"
-  | "first_speaker"
   | "playing"
   | "voting"
   | "mr_white_guess"

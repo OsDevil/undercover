@@ -124,7 +124,7 @@ export const useGameStore = create<GameStore>()(
         const { revealIndex, players } = get();
         const sorted = [...players].sort((a, b) => a.order - b.order);
         if (revealIndex + 1 >= sorted.length) {
-          set({ phase: "first_speaker" });
+          set({ phase: "playing" });
         } else {
           set({ revealIndex: revealIndex + 1 });
         }
@@ -230,7 +230,7 @@ export const useGameStore = create<GameStore>()(
           eliminatedLog: newLog,
           pendingVengeanceId: null,
           pendingMrWhiteId: null,
-          phase: "first_speaker",
+          phase: "playing",
           round: round + 1,
           firstSpeakerId: pickFirstSpeaker(updatedPlayers, config),
         });
@@ -314,7 +314,7 @@ export const useGameStore = create<GameStore>()(
           players: updatedPlayers,
           eliminatedLog: newLog,
           pendingVengeanceId: null,
-          phase: "first_speaker",
+          phase: "playing",
           round: round + 1,
           firstSpeakerId: pickFirstSpeaker(updatedPlayers, config),
         });
@@ -347,7 +347,7 @@ export const useGameStore = create<GameStore>()(
         // No victory yet — game continues without Mr. White
         set({
           pendingMrWhiteId: null,
-          phase: "first_speaker",
+          phase: "playing",
           round: round + 1,
           firstSpeakerId: pickFirstSpeaker(players, config),
         });

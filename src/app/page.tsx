@@ -12,6 +12,7 @@ const HOW_TO_PLAY = [
 ];
 
 const PHASE_ROUTES: Record<string, string> = {
+  lobby: "/lobby",
   config: "/lobby",
   reveal: "/reveal",
   playing: "/game",
@@ -23,7 +24,7 @@ const PHASE_ROUTES: Record<string, string> = {
 export default function Home() {
   const router = useRouter();
   const { phase, players, reset } = useGameStore();
-  const hasActiveGame = phase !== "lobby" && phase !== "result" && players.length > 0;
+  const hasActiveGame = phase !== "result" && players.length > 0;
 
   return (
     <main className="flex flex-col min-h-dvh px-5">
@@ -102,7 +103,7 @@ export default function Home() {
               className="w-full h-12 rounded-2xl border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] font-semibold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
             >
               <RefreshCw className="w-4 h-4" />
-              Reprendre la partie en cours
+              {phase === "lobby" ? "Reprendre le setup en cours" : "Reprendre la partie en cours"}
             </button>
           )}
         </div>

@@ -11,7 +11,7 @@ export default function RevealPage() {
   const { players, revealIndex, advanceReveal, phase } = useGameStore();
 
   useEffect(() => {
-    if (phase === "playing" || phase === "first_speaker") router.replace("/game");
+    if (phase === "playing") router.replace("/game");
     else if (phase !== "reveal") router.replace("/");
   }, [phase, router]);
 

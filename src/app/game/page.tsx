@@ -93,7 +93,6 @@ export default function GamePage() {
   const eliminatedThisGame = [...eliminatedLog].sort((a, b) => a.round - b.round);
   const allSpoke = speakerIdx >= speakingOrder.length;
   const currentSpeaker = speakingOrder[speakerIdx];
-  const firstSpeaker = players.find((p) => p.id === firstSpeakerId);
 
   function handleNextSpeaker() {
     setSpeakerIdx((i) => i + 1);
@@ -145,37 +144,6 @@ export default function GamePage() {
             className="w-full h-14 rounded-2xl bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold active:scale-95 transition-transform shadow-lg shadow-orange-500/25"
           >
             Continuer
-          </button>
-        </motion.div>
-      </main>
-    );
-  }
-
-  // ── First speaker announcement (every round) ──────────────────────────────
-  if (phase === "first_speaker" && firstSpeaker) {
-    return (
-      <main className="flex flex-col min-h-dvh bg-[var(--bg)] items-center justify-center p-6">
-        <motion.div
-          initial={{ scale: 0.85, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", damping: 14, stiffness: 200 }}
-          className="w-full max-w-sm flex flex-col items-center gap-6 text-center"
-        >
-          <div className="w-20 h-20 rounded-3xl bg-violet-500/15 border-2 border-violet-500/30 flex items-center justify-center">
-            <Mic className="w-9 h-9 text-violet-500" />
-          </div>
-          <div>
-            <p className="text-sm text-[var(--text-muted)] uppercase tracking-widest font-bold mb-2">
-              Tour {round} — Premier à parler
-            </p>
-            <p className="text-5xl mb-3">{getAvatar(firstSpeaker.order)}</p>
-            <h1 className="text-3xl font-black text-[var(--text)]">{firstSpeaker.name}</h1>
-          </div>
-          <button
-            onClick={() => setPhase("playing")}
-            className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-700 text-white font-bold text-base flex items-center justify-center gap-2 active:scale-95 transition-all shadow-lg shadow-violet-500/25 mt-2"
-          >
-            C&apos;est parti !
           </button>
         </motion.div>
       </main>
@@ -306,6 +274,7 @@ export default function GamePage() {
                   {alivePlayers.map((p) => {
                     const isSpeaker =
                       config.timerEnabled && !allSpoke && p.id === currentSpeaker?.id;
+                    const startsRound = p.id === firstSpeakerId;
                     return (
                       <div
                         key={p.id}
@@ -319,6 +288,14 @@ export default function GamePage() {
                         <span className="font-semibold text-sm flex-1 text-[var(--text)] truncate">
                           {p.name}
                         </span>
+                        {startsRound && (
+                          <span
+                            title="Commence ce tour"
+                            className="flex items-center gap-0.5 text-[10px] font-bold text-violet-500 bg-violet-500/10 px-1.5 py-0.5 rounded-full flex-shrink-0"
+                          >
+                            <Mic className="w-3 h-3" />
+                          </span>
+                        )}
                         {isSpeaker && (
                           <span className="text-xs font-black text-[var(--accent)]">→</span>
                         )}
