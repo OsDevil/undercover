@@ -360,9 +360,21 @@ export default function SetupPage() {
           )}
         </section>
 
-        {/* ── Game config (visible after 3+ players) ── */}
-        {showConfig && (
-          <>
+        {/* ── Game config (locked until 3+ players, but reserves its layout) ── */}
+        <div className="relative">
+          {!showConfig && (
+            <div className="absolute inset-x-0 top-8 z-10 flex justify-center pointer-events-none">
+              <span className="px-3 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-xs font-semibold text-[var(--text-muted)] shadow-sm text-center">
+                Ajoute 3 joueurs pour configurer la partie
+              </span>
+            </div>
+          )}
+          <div
+            className={`flex flex-col gap-6 transition-opacity ${
+              showConfig ? "" : "opacity-40 pointer-events-none select-none"
+            }`}
+            aria-hidden={!showConfig}
+          >
             {/* Role distribution */}
             <section>
               <div className="flex items-center justify-between mb-3">
@@ -617,8 +629,8 @@ export default function SetupPage() {
                 )}
               </div>
             </section>
-          </>
-        )}
+          </div>
+        </div>
 
         {/* ── Launch ── */}
         <div className="mt-auto pt-2">
