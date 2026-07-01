@@ -103,6 +103,76 @@ export const WORD_PAIRS: WordPair[] = [
   { civil: "Puzzle", undercover: "Memory", difficulty: "easy" },
   { civil: "Chaussette", undercover: "Collant", difficulty: "easy" },
   { civil: "Bougie", undercover: "Lampe", difficulty: "easy" },
+  { civil: "Fromage", undercover: "Yaourt", difficulty: "easy" },
+  { civil: "Riz", undercover: "Pâtes", difficulty: "easy" },
+  { civil: "Sel", undercover: "Poivre", difficulty: "easy" },
+  { civil: "Beurre", undercover: "Margarine", difficulty: "easy" },
+  { civil: "Confiture", undercover: "Miel", difficulty: "easy" },
+  { civil: "Trottinette", undercover: "Rollers", difficulty: "easy" },
+  { civil: "Piscine", undercover: "Lac", difficulty: "easy" },
+  { civil: "Sapin", undercover: "Palmier", difficulty: "easy" },
+  { civil: "Fleur", undercover: "Plante", difficulty: "easy" },
+  { civil: "Oiseau", undercover: "Poisson", difficulty: "easy" },
+  { civil: "Souris", undercover: "Rat", difficulty: "easy" },
+  { civil: "Hamster", undercover: "Cochon d'Inde", difficulty: "easy" },
+  { civil: "Tortue", undercover: "Escargot", difficulty: "easy" },
+  { civil: "Abeille", undercover: "Guêpe", difficulty: "easy" },
+  { civil: "Papillon", undercover: "Libellule", difficulty: "easy" },
+  { civil: "Araignée", undercover: "Scorpion", difficulty: "easy" },
+  { civil: "Serpent", undercover: "Lézard", difficulty: "easy" },
+  { civil: "Grenouille", undercover: "Crapaud", difficulty: "easy" },
+  { civil: "Sac", undercover: "Valise", difficulty: "easy" },
+  { civil: "Parapluie", undercover: "Imperméable", difficulty: "easy" },
+  { civil: "Miroir", undercover: "Vitre", difficulty: "easy" },
+  { civil: "Porte", undercover: "Fenêtre", difficulty: "easy" },
+  { civil: "Escalier", undercover: "Ascenseur", difficulty: "easy" },
+  { civil: "Balcon", undercover: "Terrasse", difficulty: "easy" },
+  { civil: "Cheminée", undercover: "Radiateur", difficulty: "easy" },
+  { civil: "Oreiller", undercover: "Coussin", difficulty: "easy" },
+  { civil: "Couverture", undercover: "Drap", difficulty: "easy" },
+  { civil: "Brosse à dents", undercover: "Dentifrice", difficulty: "easy" },
+  { civil: "Savon", undercover: "Shampoing", difficulty: "easy" },
+  { civil: "Serviette", undercover: "Peignoir", difficulty: "easy" },
+  { civil: "Crayon", undercover: "Stylo", difficulty: "easy" },
+  { civil: "Cahier", undercover: "Classeur", difficulty: "easy" },
+  { civil: "Gomme", undercover: "Taille-crayon", difficulty: "easy" },
+  { civil: "Trousse", undercover: "Sac à dos", difficulty: "easy" },
+  { civil: "Tableau", undercover: "Affiche", difficulty: "easy" },
+  { civil: "Horloge", undercover: "Réveil", difficulty: "easy" },
+  { civil: "Radio", undercover: "Télévision", difficulty: "easy" },
+  { civil: "Ordinateur", undercover: "Console", difficulty: "easy" },
+  { civil: "Clavier", undercover: "Souris d'ordinateur", difficulty: "easy" },
+  { civil: "Casque", undercover: "Écouteurs", difficulty: "easy" },
+  { civil: "Batterie", undercover: "Chargeur", difficulty: "easy" },
+  { civil: "Camping-car", undercover: "Caravane", difficulty: "easy" },
+  { civil: "Tente", undercover: "Cabane", difficulty: "easy" },
+  { civil: "Feu de camp", undercover: "Barbecue", difficulty: "easy" },
+  { civil: "Randonnée", undercover: "Promenade", difficulty: "easy" },
+  { civil: "Marché", undercover: "Supermarché", difficulty: "easy" },
+  { civil: "Boucherie", undercover: "Poissonnerie", difficulty: "easy" },
+  { civil: "Pharmacie", undercover: "Parapharmacie", difficulty: "easy" },
+  { civil: "Banque", undercover: "Bureau de poste", difficulty: "easy" },
+  { civil: "Mairie", undercover: "Préfecture", difficulty: "easy" },
+  { civil: "Église", undercover: "Cathédrale", difficulty: "easy" },
+  { civil: "Château", undercover: "Palais", difficulty: "easy" },
+  { civil: "Pont", undercover: "Tunnel", difficulty: "easy" },
+  { civil: "Route", undercover: "Autoroute", difficulty: "easy" },
+  { civil: "Feu rouge", undercover: "Passage piéton", difficulty: "easy" },
+  { civil: "Vélo électrique", undercover: "Trottinette électrique", difficulty: "easy" },
+  { civil: "Camping", undercover: "Colonie de vacances", difficulty: "easy" },
+  { civil: "Anniversaire", undercover: "Noël", difficulty: "easy" },
+  { civil: "Pâques", undercover: "Halloween", difficulty: "easy" },
+  { civil: "Ballon", undercover: "Frisbee", difficulty: "easy" },
+  { civil: "Corde à sauter", undercover: "Élastique", difficulty: "easy" },
+  { civil: "Toboggan", undercover: "Balançoire", difficulty: "easy" },
+  { civil: "Poupée", undercover: "Peluche", difficulty: "easy" },
+  { civil: "Robot", undercover: "Drone", difficulty: "easy" },
+  { civil: "Château de sable", undercover: "Bonhomme de neige", difficulty: "easy" },
+  { civil: "Sirène", undercover: "Fée", difficulty: "easy" },
+  { civil: "Dragon", undercover: "Dinosaure", difficulty: "easy" },
+  { civil: "Pirate", undercover: "Chevalier", difficulty: "easy" },
+  { civil: "Astronaute", undercover: "Cosmonaute", difficulty: "easy" },
+  { civil: "Clown", undercover: "Magicien", difficulty: "easy" },
 
   // ── Medium ───────────────────────────────────────────────────────────────────
   { civil: "Violon", undercover: "Alto", difficulty: "medium" },
@@ -205,6 +275,78 @@ export const WORD_PAIRS: WordPair[] = [
   { civil: "Fermentation", undercover: "Lacto-fermentation", difficulty: "medium" },
   { civil: "Jardinière", undercover: "Serre", difficulty: "medium" },
   { civil: "Karting", undercover: "Quad", difficulty: "medium" },
+  { civil: "Bourbon", undercover: "Scotch", difficulty: "medium" },
+  { civil: "Rhum", undercover: "Cachaça", difficulty: "medium" },
+  { civil: "Sancerre", undercover: "Chablis", difficulty: "medium" },
+  { civil: "IPA", undercover: "Stout", difficulty: "medium" },
+  { civil: "Espresso", undercover: "Cappuccino", difficulty: "medium" },
+  { civil: "Latte", undercover: "Macchiato", difficulty: "medium" },
+  { civil: "Matcha", undercover: "Chaï", difficulty: "medium" },
+  { civil: "Smoothie", undercover: "Milkshake", difficulty: "medium" },
+  { civil: "Falafel", undercover: "Houmous", difficulty: "medium" },
+  { civil: "Curry", undercover: "Tikka masala", difficulty: "medium" },
+  { civil: "Naan", undercover: "Chapati", difficulty: "medium" },
+  { civil: "Dim sum", undercover: "Nems", difficulty: "medium" },
+  { civil: "Poke bowl", undercover: "Buddha bowl", difficulty: "medium" },
+  { civil: "Burrito", undercover: "Quesadilla", difficulty: "medium" },
+  { civil: "Ceviche", undercover: "Tartare", difficulty: "medium" },
+  { civil: "Fondue", undercover: "Raclette", difficulty: "medium" },
+  { civil: "Cassoulet", undercover: "Choucroute", difficulty: "medium" },
+  { civil: "Bouillabaisse", undercover: "Paella", difficulty: "medium" },
+  { civil: "Escargots", undercover: "Cuisses de grenouille", difficulty: "medium" },
+  { civil: "Foie gras", undercover: "Rillettes", difficulty: "medium" },
+  { civil: "Roquefort", undercover: "Bleu d'Auvergne", difficulty: "medium" },
+  { civil: "Comté", undercover: "Beaufort", difficulty: "medium" },
+  { civil: "Mozzarella", undercover: "Burrata", difficulty: "medium" },
+  { civil: "Parmesan", undercover: "Pecorino", difficulty: "medium" },
+  { civil: "Prosciutto", undercover: "Bresaola", difficulty: "medium" },
+  { civil: "Chorizo", undercover: "Saucisson", difficulty: "medium" },
+  { civil: "Boudin noir", undercover: "Andouillette", difficulty: "medium" },
+  { civil: "Pilates", undercover: "Barre au sol", difficulty: "medium" },
+  { civil: "Trail", undercover: "Ultra-trail", difficulty: "medium" },
+  { civil: "Aviron", undercover: "Canoë", difficulty: "medium" },
+  { civil: "Voile", undercover: "Planche à voile", difficulty: "medium" },
+  { civil: "Plongée", undercover: "Snorkeling", difficulty: "medium" },
+  { civil: "Kitesurf", undercover: "Windsurf", difficulty: "medium" },
+  { civil: "Paddle", undercover: "Kayak de mer", difficulty: "medium" },
+  { civil: "Rollerblade", undercover: "Skateboard", difficulty: "medium" },
+  { civil: "BMX", undercover: "VTT descente", difficulty: "medium" },
+  { civil: "Squash", undercover: "Padel", difficulty: "medium" },
+  { civil: "Water-polo", undercover: "Natation synchronisée", difficulty: "medium" },
+  { civil: "Gymnastique", undercover: "Trampoline", difficulty: "medium" },
+  { civil: "Danse classique", undercover: "Danse contemporaine", difficulty: "medium" },
+  { civil: "Salsa", undercover: "Bachata", difficulty: "medium" },
+  { civil: "Tango", undercover: "Valse", difficulty: "medium" },
+  { civil: "Breakdance", undercover: "Krump", difficulty: "medium" },
+  { civil: "Rock", undercover: "Metal", difficulty: "medium" },
+  { civil: "Reggae", undercover: "Ska", difficulty: "medium" },
+  { civil: "Funk", undercover: "Disco", difficulty: "medium" },
+  { civil: "Punk", undercover: "Grunge", difficulty: "medium" },
+  { civil: "Opéra rock", undercover: "Comédie musicale", difficulty: "medium" },
+  { civil: "Vinyle", undercover: "Cassette", difficulty: "medium" },
+  { civil: "Twitch", undercover: "YouTube", difficulty: "medium" },
+  { civil: "Snapchat", undercover: "BeReal", difficulty: "medium" },
+  { civil: "Discord", undercover: "Slack", difficulty: "medium" },
+  { civil: "WhatsApp", undercover: "Messenger", difficulty: "medium" },
+  { civil: "LinkedIn", undercover: "Indeed", difficulty: "medium" },
+  { civil: "Amazon", undercover: "Cdiscount", difficulty: "medium" },
+  { civil: "Tesla", undercover: "Rivian", difficulty: "medium" },
+  { civil: "Vélo cargo", undercover: "Vélo pliant", difficulty: "medium" },
+  { civil: "Trottinette électrique", undercover: "Gyroroue", difficulty: "medium" },
+  { civil: "Sommelier", undercover: "Œnologue", difficulty: "medium" },
+  { civil: "Barista", undercover: "Torréfacteur", difficulty: "medium" },
+  { civil: "Pâtissier", undercover: "Boulanger", difficulty: "medium" },
+  { civil: "Chef cuisinier", undercover: "Second de cuisine", difficulty: "medium" },
+  { civil: "Traiteur", undercover: "Cuisinier à domicile", difficulty: "medium" },
+  { civil: "Architecte d'intérieur", undercover: "Décorateur", difficulty: "medium" },
+  { civil: "Illustrateur", undercover: "Graphiste", difficulty: "medium" },
+  { civil: "Community manager", undercover: "Social media manager", difficulty: "medium" },
+  { civil: "Data analyst", undercover: "Data scientist", difficulty: "medium" },
+  { civil: "UX designer", undercover: "UI designer", difficulty: "medium" },
+  { civil: "Bière blonde", undercover: "Bière ambrée", difficulty: "medium" },
+  { civil: "Cidre", undercover: "Poiré", difficulty: "medium" },
+  { civil: "Feta", undercover: "Halloumi", difficulty: "medium" },
+  { civil: "Houblon", undercover: "Malt", difficulty: "medium" },
 
   // ── Hard ─────────────────────────────────────────────────────────────────────
   { civil: "Oxygène", undercover: "Azote", difficulty: "hard" },
@@ -310,10 +452,118 @@ export const WORD_PAIRS: WordPair[] = [
   { civil: "Machine learning", undercover: "Deep learning", difficulty: "hard" },
   { civil: "Algorithme", undercover: "Heuristique", difficulty: "hard" },
   { civil: "Blockchain", undercover: "Distributed ledger", difficulty: "hard" },
+  { civil: "Épistémologie", undercover: "Ontologie", difficulty: "hard" },
+  { civil: "Solipsisme", undercover: "Idéalisme", difficulty: "hard" },
+  { civil: "Nietzschéen", undercover: "Hégélien", difficulty: "hard" },
+  { civil: "Structuralisme", undercover: "Post-structuralisme", difficulty: "hard" },
+  { civil: "Existentialisme", undercover: "Absurdisme", difficulty: "hard" },
+  { civil: "Anarchisme", undercover: "Libertarianisme", difficulty: "hard" },
+  { civil: "Théocratie", undercover: "Ploutocratie", difficulty: "hard" },
+  { civil: "Bicamérisme", undercover: "Monocamérisme", difficulty: "hard" },
+  { civil: "Referendum", undercover: "Plébiscite", difficulty: "hard" },
+  { civil: "Kelvin", undercover: "Celsius", difficulty: "hard" },
+  { civil: "Fission", undercover: "Fusion nucléaire", difficulty: "hard" },
+  { civil: "Photon", undercover: "Électron", difficulty: "hard" },
+  { civil: "Supraconducteur", undercover: "Semi-conducteur", difficulty: "hard" },
+  { civil: "Entropie", undercover: "Enthalpie", difficulty: "hard" },
+  { civil: "Covalent", undercover: "Ionique", difficulty: "hard" },
+  { civil: "Catalyseur", undercover: "Inhibiteur", difficulty: "hard" },
+  { civil: "Polymère", undercover: "Monomère", difficulty: "hard" },
+  { civil: "Allèle", undercover: "Locus", difficulty: "hard" },
+  { civil: "Phénotype", undercover: "Génotype", difficulty: "hard" },
+  { civil: "Mutation", undercover: "Recombinaison génétique", difficulty: "hard" },
+  { civil: "Osmose", undercover: "Diffusion", difficulty: "hard" },
+  { civil: "Photosynthèse", undercover: "Respiration cellulaire", difficulty: "hard" },
+  { civil: "Neurone miroir", undercover: "Neurone sensoriel", difficulty: "hard" },
+  { civil: "Amygdale cérébrale", undercover: "Hippocampe", difficulty: "hard" },
+  { civil: "Anxiolytique", undercover: "Antidépresseur", difficulty: "hard" },
+  { civil: "Placebo", undercover: "Nocebo", difficulty: "hard" },
+  { civil: "Étude randomisée", undercover: "Étude observationnelle", difficulty: "hard" },
+  { civil: "Prévalence", undercover: "Incidence", difficulty: "hard" },
+  { civil: "Immunité innée", undercover: "Immunité acquise", difficulty: "hard" },
+  { civil: "Autoimmunité", undercover: "Allergie", difficulty: "hard" },
+  { civil: "Cirrhose", undercover: "Hépatite", difficulty: "hard" },
+  { civil: "Arythmie", undercover: "Tachycardie", difficulty: "hard" },
+  { civil: "Prothèse", undercover: "Orthèse", difficulty: "hard" },
+  { civil: "Litote", undercover: "Euphémisme", difficulty: "hard" },
+  { civil: "Antiphrase", undercover: "Ironie dramatique", difficulty: "hard" },
+  { civil: "Anaphore", undercover: "Épiphore", difficulty: "hard" },
+  { civil: "Chiasme", undercover: "Antithèse", difficulty: "hard" },
+  { civil: "Pentamètre iambique", undercover: "Hexamètre", difficulty: "hard" },
+  { civil: "Villanelle", undercover: "Pantoum", difficulty: "hard" },
+  { civil: "Réalisme magique", undercover: "Fantastique littéraire", difficulty: "hard" },
+  { civil: "Roman épistolaire", undercover: "Journal intime fictif", difficulty: "hard" },
+  { civil: "Rétable", undercover: "Triptyque", difficulty: "hard" },
+  { civil: "Clair-obscur", undercover: "Sfumato", difficulty: "hard" },
+  { civil: "Fauvisme", undercover: "Expressionnisme", difficulty: "hard" },
+  { civil: "Op art", undercover: "Art cinétique", difficulty: "hard" },
+  { civil: "Land art", undercover: "Art conceptuel", difficulty: "hard" },
+  { civil: "Contreplaqué", undercover: "MDF", difficulty: "hard" },
+  { civil: "Titane", undercover: "Tungstène", difficulty: "hard" },
+  { civil: "Alliage", undercover: "Composite", difficulty: "hard" },
+  { civil: "Fibre de carbone", undercover: "Fibre de verre", difficulty: "hard" },
+  { civil: "Amortisseur", undercover: "Suspension pneumatique", difficulty: "hard" },
+  { civil: "Turbocompresseur", undercover: "Compresseur volumétrique", difficulty: "hard" },
+  { civil: "Boîte manuelle", undercover: "Boîte automatique", difficulty: "hard" },
+  { civil: "Hybride rechargeable", undercover: "Véhicule électrique", difficulty: "hard" },
+  { civil: "Cache mémoire", undercover: "Mémoire vive", difficulty: "hard" },
+  { civil: "Latence réseau", undercover: "Bande passante", difficulty: "hard" },
+  { civil: "Chiffrement", undercover: "Hachage", difficulty: "hard" },
+  { civil: "API REST", undercover: "GraphQL", difficulty: "hard" },
+  { civil: "Conteneurisation", undercover: "Virtualisation", difficulty: "hard" },
+  { civil: "Réseau de neurones", undercover: "Arbre de décision", difficulty: "hard" },
+  { civil: "Overfitting", undercover: "Underfitting", difficulty: "hard" },
+  { civil: "Taux d'intérêt réel", undercover: "Taux d'intérêt nominal", difficulty: "hard" },
+  { civil: "Actif liquide", undercover: "Actif illiquide", difficulty: "hard" },
+  { civil: "Obligation souveraine", undercover: "Obligation corporate", difficulty: "hard" },
+  { civil: "Effet de levier", undercover: "Effet de massue", difficulty: "hard" },
+  { civil: "Amortissement linéaire", undercover: "Amortissement dégressif", difficulty: "hard" },
+  { civil: "Monopole naturel", undercover: "Monopole légal", difficulty: "hard" },
+  { civil: "Externalité positive", undercover: "Externalité négative", difficulty: "hard" },
+  { civil: "Bien public", undercover: "Bien commun", difficulty: "hard" },
 ];
 
+const USED_PAIRS_KEY = "undercover-used-pairs";
+const USED_PAIRS_TTL_MS = 24 * 60 * 60 * 1000;
+
+function pairKey(pair: WordPair): string {
+  return `${pair.civil}|||${pair.undercover}`;
+}
+
+function loadUsedPairKeys(): { key: string; usedAt: number }[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(USED_PAIRS_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as { key: string; usedAt: number }[];
+    const now = Date.now();
+    return parsed.filter((r) => now - r.usedAt < USED_PAIRS_TTL_MS);
+  } catch {
+    return [];
+  }
+}
+
+function saveUsedPairKeys(records: { key: string; usedAt: number }[]): void {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(USED_PAIRS_KEY, JSON.stringify(records));
+}
+
 export function getRandomPair(difficulty: "easy" | "medium" | "hard"): WordPair {
-  const filtered = WORD_PAIRS.filter((p) => p.difficulty === difficulty);
-  const idx = Math.floor(Math.random() * filtered.length);
-  return filtered[idx] ?? filtered[0]!;
+  const pool = WORD_PAIRS.filter((p) => p.difficulty === difficulty);
+  const used = loadUsedPairKeys();
+  const usedKeys = new Set(used.map((u) => u.key));
+
+  let available = pool.filter((p) => !usedKeys.has(pairKey(p)));
+  let nextUsed = used;
+
+  // Every pair in this difficulty was already used this session — free them up again
+  if (available.length === 0) {
+    const poolKeys = new Set(pool.map(pairKey));
+    nextUsed = used.filter((u) => !poolKeys.has(u.key));
+    available = pool;
+  }
+
+  const pair = available[Math.floor(Math.random() * available.length)] ?? pool[0]!;
+  saveUsedPairKeys([...nextUsed, { key: pairKey(pair), usedAt: Date.now() }]);
+  return pair;
 }

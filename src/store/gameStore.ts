@@ -2,7 +2,12 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { checkVictory, getLoverPartner, shouldTriggerMrWhiteGuess } from "@/lib/gameLogic";
+import {
+  checkVictory,
+  getLoverPartner,
+  pickFirstSpeaker,
+  shouldTriggerMrWhiteGuess,
+} from "@/lib/gameLogic";
 import { assignRoles } from "@/lib/roleAssigner";
 import type { GameConfig, GameState, Player } from "@/lib/types";
 
@@ -102,11 +107,6 @@ export const useGameStore = create<GameStore>()(
       startGame: () => {
         const { players, config } = get();
         const assigned = assignRoles(players, config);
-        const eligible = config.mrWhiteCanStart
-          ? assigned
-          : assigned.filter((p) => p.role !== "mr_white");
-        const pool = eligible.length > 0 ? eligible : assigned;
-        const firstSpeaker = pool[Math.floor(Math.random() * pool.length)]!;
         set({
           players: assigned,
           phase: "reveal",
@@ -114,7 +114,7 @@ export const useGameStore = create<GameStore>()(
           revealIndex: 0,
           eliminatedLog: [],
           winners: null,
-          firstSpeakerId: firstSpeaker.id,
+          firstSpeakerId: pickFirstSpeaker(assigned, config),
           pendingVengeanceId: null,
           pendingMrWhiteId: null,
         });
@@ -133,7 +133,7 @@ export const useGameStore = create<GameStore>()(
       setPhase: (phase) => set({ phase }),
 
       eliminatePlayer: (playerId) => {
-        const { players, eliminatedLog, round } = get();
+        const { players, eliminatedLog, round, config } = get();
         const target = players.find((p) => p.id === playerId);
         if (!target) return;
 
@@ -230,13 +230,14 @@ export const useGameStore = create<GameStore>()(
           eliminatedLog: newLog,
           pendingVengeanceId: null,
           pendingMrWhiteId: null,
-          phase: "playing",
+          phase: "first_speaker",
           round: round + 1,
+          firstSpeakerId: pickFirstSpeaker(updatedPlayers, config),
         });
       },
 
       resolveVengeance: (targetId) => {
-        const { players, eliminatedLog, round } = get();
+        const { players, eliminatedLog, round, config } = get();
         let updatedPlayers = players;
         let newLog = eliminatedLog;
 
@@ -313,13 +314,14 @@ export const useGameStore = create<GameStore>()(
           players: updatedPlayers,
           eliminatedLog: newLog,
           pendingVengeanceId: null,
-          phase: "playing",
+          phase: "first_speaker",
           round: round + 1,
+          firstSpeakerId: pickFirstSpeaker(updatedPlayers, config),
         });
       },
 
       resolveMrWhiteGuess: (won) => {
-        const { players, eliminatedLog, round, pendingMrWhiteId } = get();
+        const { players, eliminatedLog, round, pendingMrWhiteId, config } = get();
         const mrWhite = players.find((p) => p.id === pendingMrWhiteId);
 
         if (won && mrWhite) {
@@ -343,16 +345,29 @@ export const useGameStore = create<GameStore>()(
         }
 
         // No victory yet — game continues without Mr. White
-        set({ pendingMrWhiteId: null, phase: "playing", round: round + 1 });
+        set({
+          pendingMrWhiteId: null,
+          phase: "first_speaker",
+          round: round + 1,
+          firstSpeakerId: pickFirstSpeaker(players, config),
+        });
       },
 
       reset: () => set(INITIAL_STATE),
 
       resetToLobby: () => {
         const { players, config } = get();
+        // Custom words were typed in by hand — the organizer already knows them, so
+        // keep them. Rolled words stay hidden from the organizer, so clear those to
+        // force a fresh (never-seen) pair next game.
+        const isCustom = config.difficulty === "custom";
         set({
           ...INITIAL_STATE,
-          config: { ...config, civilWord: "", undercoverWord: "" },
+          config: {
+            ...config,
+            civilWord: isCustom ? config.civilWord : "",
+            undercoverWord: isCustom ? config.undercoverWord : "",
+          },
           players: players.map((p, i) => ({
             id: p.id,
             name: p.name,

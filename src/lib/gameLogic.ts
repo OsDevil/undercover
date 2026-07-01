@@ -1,4 +1,4 @@
-import type { EliminationEntry, Player, WinResult } from "./types";
+import type { EliminationEntry, GameConfig, Player, WinResult } from "./types";
 
 const ANIMALS = [
   "🐱",
@@ -103,6 +103,14 @@ export function shouldTriggerMrWhiteGuess(players: Player[]): string | null {
     return aliveMrWhites[0]!.id;
   }
   return null;
+}
+
+export function pickFirstSpeaker(players: Player[], config: GameConfig): string | null {
+  const alive = players.filter((p) => p.alive);
+  if (alive.length === 0) return null;
+  const eligible = config.mrWhiteCanStart ? alive : alive.filter((p) => p.role !== "mr_white");
+  const pool = eligible.length > 0 ? eligible : alive;
+  return pool[Math.floor(Math.random() * pool.length)]!.id;
 }
 
 export function getLoverPartner(players: Player[], playerId: string): Player | null {
